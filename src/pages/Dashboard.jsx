@@ -10,7 +10,6 @@ import { Skeleton } from "@/components/ui/skeleton"
 import api from "@/services/api"
 
 export default function Dashboard() {
-  const router = useRouter()
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate();
