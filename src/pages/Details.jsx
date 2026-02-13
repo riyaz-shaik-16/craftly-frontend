@@ -68,8 +68,8 @@ export default function DetailsForm() {
 
         setPortfolio(formattedData);
       } catch (error) {
-        toast.error("Something went Wrong!",{position:"top-right"})
-      } finally{
+        toast.error("Something went Wrong!", { position: "top-right" });
+      } finally {
         setPreviewLoading(false);
       }
     };
@@ -163,31 +163,62 @@ export default function DetailsForm() {
           "Content-Type": "multipart/form-data",
         },
       });
-      toast.success("Saved Successfully!",{position:"top-right"})
+      toast.success("Saved Successfully!", { position: "top-right" });
     } catch (error) {
-      toast.error("Something went wrong!",{position:"top-right"});
+      toast.error("Something went wrong!", { position: "top-right" });
     } finally {
       setPreviewLoading(false);
     }
   };
 
-
   if (previewLoading) {
     return (
-      <div className="space-y-6 max-w-5xl mx-auto">
-      <Card>
-        <CardHeader>
-        <Skeleton className="h-6 w-40" />
-        </CardHeader>
-        <CardContent className="space-y-4">
-        <Skeleton className="h-10 w-full" />
-        <Skeleton className="h-10 w-full" />
-        <Skeleton className="h-10 w-full" />
-        <Skeleton className="h-24 w-full" />
-        </CardContent>
-      </Card>
+      <div className="max-w-5xl mx-auto space-y-8 animate-pulse">
+        {/* Header Section */}
+        <div className="flex items-center justify-between">
+          <Skeleton className="h-8 w-48 rounded-md" />
+          <Skeleton className="h-8 w-24 rounded-md" />
+        </div>
+
+        {/* Hero/Profile Section */}
+        <Card className="rounded-2xl">
+          <CardContent className="p-8 flex flex-col md:flex-row gap-8 items-center">
+            {/* Avatar */}
+            <Skeleton className="h-28 w-28 rounded-full" />
+
+            {/* Name + Bio */}
+            <div className="flex-1 space-y-4 w-full">
+              <Skeleton className="h-6 w-1/2 rounded-md" />
+              <Skeleton className="h-4 w-3/4 rounded-md" />
+              <Skeleton className="h-4 w-2/3 rounded-md" />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Projects Grid */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {[...Array(4)].map((_, i) => (
+            <Card key={i} className="rounded-2xl">
+              <CardContent className="p-6 space-y-4">
+                <Skeleton className="h-40 w-full rounded-xl" />
+                <Skeleton className="h-5 w-2/3 rounded-md" />
+                <Skeleton className="h-4 w-full rounded-md" />
+                <Skeleton className="h-4 w-5/6 rounded-md" />
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Footer Section */}
+        <Card className="rounded-2xl">
+          <CardContent className="p-6 space-y-4">
+            <Skeleton className="h-5 w-40 rounded-md" />
+            <Skeleton className="h-4 w-full rounded-md" />
+            <Skeleton className="h-4 w-3/4 rounded-md" />
+          </CardContent>
+        </Card>
       </div>
-    )
+    );
   }
 
   return (
