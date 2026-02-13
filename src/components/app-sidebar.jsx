@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
+import { NavMain } from "@/components/nav-main";
+import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -10,7 +10,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 import {
   RiDashboardLine,
@@ -20,8 +20,9 @@ import {
   RiPaletteLine,
   RiEyeLine,
   RiCommandLine,
-  RiRocketLine
-} from "@remixicon/react"
+  RiRocketLine,
+} from "@remixicon/react";
+import { ThemeToggle } from "./theme-toggle";
 
 const data = {
   navMain: [
@@ -64,24 +65,26 @@ const data = {
       ],
     },
   ],
-}
+};
 
-export function AppSidebar({
-  ...props
-}) {
+export function AppSidebar({ ...props }) {
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" render={<a href="#" />}>
-              <div
-                className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                <RiCommandLine className="size-4" />
+              <div className="text-primary-foreground flex size-10 items-center justify-center rounded-md">
+                <img
+                  src="/logo.png"
+                  alt="Craftly Logo"
+                  className="size-10 rounded-4xl object-contain"
+                />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">Craftly</span>
               </div>
+              <ThemeToggle/>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

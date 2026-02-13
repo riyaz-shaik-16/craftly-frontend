@@ -79,12 +79,12 @@ export function LoginForm({ className, ...props }) {
         <Field>
           <div className="flex items-center">
             <FieldLabel htmlFor="password">Password</FieldLabel>
-            <Link
+            {/* <Link
               to="#"
               className="ml-auto text-sm underline-offset-4 hover:underline"
             >
               Forgot your password?
-            </Link>
+            </Link> */}
           </div>
           <Input
             id="password"
