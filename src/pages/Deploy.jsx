@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export default function DeployPage() {
   const [loading, setLoading] = useState(false)
+  const [deploying, setDeploying] = useState(false);
   const [portfolio, setPortfolio] = useState(null)
   const [state, setState] = useState(null)
 
@@ -31,17 +32,17 @@ export default function DeployPage() {
 
   const handleDeploy = async () => {
     try {
-      setLoading(true)
+      setDeploying(true)
 
       await api.post("/portfolio/deploy")
 
-      toast.success("Deployment Successful!",{positon:"top-right"});
+      toast.success("Deployment Successful!",{position:"top-right"});
 
       await fetchDashboard()
     } catch (err) {
       toast.error("Something went wrong!",{positon:"top-right"})
     } finally {
-      setLoading(false)
+      setDeploying(false)
     }
   }
 
@@ -93,7 +94,7 @@ export default function DeployPage() {
             disabled={loading}
             className="w-full"
           >
-            {loading
+            {deploying
               ? "Deploying..."
               : isLive
               ? "Redeploy"
