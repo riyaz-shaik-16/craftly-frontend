@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import api from "@/services/api"
 import { toast } from "sonner";
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function DeployPage() {
   const [loading, setLoading] = useState(false)
