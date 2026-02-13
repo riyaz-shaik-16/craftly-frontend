@@ -173,7 +173,7 @@ export default function DetailsForm() {
 
   if (previewLoading) {
     return (
-      <div className="w-screen mx-auto space-y-8 animate-pulse">
+      <div className="w-full mx-auto space-y-8 animate-pulse">
         {/* Header Section */}
         <div className="flex items-center justify-between">
           <Skeleton className="h-8 w-48 rounded-md" />
