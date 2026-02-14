@@ -9,11 +9,17 @@ const useAuth = () => {
   const setUser = useAuthStore((s) => s.setUser);
   const setAuthLoading = useAuthStore((s) => s.setAuthLoading);
   const logout = useAuthStore((s) => s.logout);
+  const hasCheckedAuth = useAuthStore((s) => s.hasCheckedAuth);
+  const setCheckedAuth = useAuthStore((s) => s.setCheckedAuth);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    if (!token) return;
+    if (!token) {
+      setCheckedAuth();
+      return;
+    }
+
     if (isAuthenticated || isAuthLoading) return;
 
     const fetchUser = async () => {
@@ -21,15 +27,16 @@ const useAuth = () => {
         setAuthLoading(true);
         const res = await api.get("/auth/me");
         setUser(res.data);
-      } catch (err) {
+      } catch {
         logout();
       } finally {
         setAuthLoading(false);
+        setCheckedAuth();
       }
     };
 
     fetchUser();
-  }, [isAuthenticated, isAuthLoading, setUser, setAuthLoading, logout]);
+  }, []);
 
   return { user, isAuthenticated, isAuthLoading };
 };
