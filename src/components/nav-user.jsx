@@ -16,10 +16,7 @@ import {
 } from "@/components/ui/sidebar";
 import {
   RiArrowUpDownLine,
-  RiSparklingLine,
   RiCheckboxCircleLine,
-  RiBankCardLine,
-  RiNotificationLine,
   RiLogoutBoxLine,
 } from "@remixicon/react";
 

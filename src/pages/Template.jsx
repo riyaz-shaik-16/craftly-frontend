@@ -1,124 +1,124 @@
-"use client"
+"use client";
 
-import usePortfolioStore from "@/store/portfolio.store"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { useState } from "react"
-import { toast } from "sonner"
-import api from "@/services/api"
+import usePortfolioStore from "@/store/portfolio.store";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { useState } from "react";
+import { toast } from "sonner";
+import api from "@/services/api";
 
 const templates = [
   {
     id: "modern",
     name: "Modern Minimal",
-    description: "Clean, professional, safe choice for developers."
+    description: "Clean, professional, safe choice for developers.",
   },
   {
     id: "dark",
     name: "Dark Professional",
-    description: "Bold dark layout for serious engineers."
+    description: "Bold dark layout for serious engineers.",
   },
   {
     id: "saas",
     name: "SaaS Product",
-    description: "Looks like a startup landing page."
+    description: "Looks like a startup landing page.",
   },
   {
     id: "creative",
     name: "Creative Designer",
-    description: "Visual-heavy layout for designers."
+    description: "Visual-heavy layout for designers.",
   },
   {
     id: "ai",
     name: "AI Futuristic",
-    description: "Neon accents and tech-forward vibe."
+    description: "Neon accents and tech-forward vibe.",
   },
   {
     id: "resume",
     name: "Resume Classic",
-    description: "Traditional structured resume layout."
+    description: "Traditional structured resume layout.",
   },
   {
     id: "narrative",
     name: "One Page Story",
-    description: "Scroll-based storytelling portfolio."
+    description: "Scroll-based storytelling portfolio.",
   },
   {
     id: "corporate",
     name: "Corporate Executive",
-    description: "Formal and leadership-focused."
+    description: "Formal and leadership-focused.",
   },
   {
     id: "terminal",
     name: "Developer Terminal",
-    description: "Hacker-style terminal aesthetic."
+    description: "Hacker-style terminal aesthetic.",
   },
   {
     id: "luxury",
     name: "Luxury Personal Brand",
-    description: "Elegant editorial premium layout."
-  }
-]
+    description: "Elegant editorial premium layout.",
+  },
+];
 
 export default function TemplatesPage() {
-  const { template, setTemplate } = usePortfolioStore()
+  const { template, setTemplate } = usePortfolioStore();
   const [loading, setLoading] = useState(false);
   const handleUpdateTemplate = async () => {
     try {
-      if(!template){
-        toast.warning("Select a template!",{position:"top-right"});
+      if (!template) {
+        toast.warning("Select a template!", { position: "top-right" });
         return;
       }
       setLoading(true);
-      const {data} = await api.post("/portfolio/update-template",{template});
-      toast.success("Template updated successfully!",{position:"top-right"});
+      const { data } = await api.post("/portfolio/update-template", {
+        template,
+      });
+      toast.success("Template updated successfully!", {
+        position: "top-right",
+      });
     } catch (error) {
-      toast.error("Error updating theme!",{position:"top-right"});
-    } finally{
+      toast.error("Error updating theme!", { position: "top-right" });
+    } finally {
       setLoading(false);
     }
-  }
-
+  };
 
   return (
     <div className="w-full mx-auto p-6 space-y-8">
-
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">
-          Choose a Template
-        </h1>
+        <h1 className="text-3xl font-bold tracking-tight">Choose a Template</h1>
         <p className="text-muted-foreground">
           Select a design style for your portfolio.
         </p>
       </div>
 
-      <Button
-        onClick={handleUpdateTemplate}
-      >
-        {loading ? "Updating!" : "Update Template"}
-      </Button>
+      {template && (
+        <Button onClick={handleUpdateTemplate}>
+          {loading ? "Updating!" : "Update Template"}
+        </Button>
+      )}
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {templates.map((item) => (
           <Card
             key={item.id}
             className={`transition-all ${
-              template === item.id
-                ? "border-primary shadow-lg"
-                : ""
+              template === item.id ? "border-primary shadow-lg" : ""
             }`}
           >
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle>{item.name}</CardTitle>
-                {template === item.id && (
-                  <Badge>Selected</Badge>
-                )}
+                {template === item.id && <Badge>Selected</Badge>}
               </div>
-              <CardDescription>
-                {item.description}
-              </CardDescription>
+              <CardDescription>{item.description}</CardDescription>
             </CardHeader>
 
             <CardContent>
@@ -135,7 +135,6 @@ export default function TemplatesPage() {
           </Card>
         ))}
       </div>
-
     </div>
-  )
+  );
 }
