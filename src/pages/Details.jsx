@@ -88,10 +88,6 @@ export default function DetailsForm() {
 
       const cleanData = JSON.parse(JSON.stringify(data));
 
-      /* =============================
-       PRESERVE EXISTING IMAGE URLS
-    ============================== */
-
       // Avatar
       if (typeof data.personal.avatar === "string") {
         cleanData.personal.avatar = data.personal.avatar;
@@ -121,10 +117,6 @@ export default function DetailsForm() {
       });
 
       formData.append("data", JSON.stringify(cleanData));
-
-      /* =============================
-       APPEND NEW FILES ONLY
-    ============================== */
 
       // Avatar upload
       if (data.personal.avatar instanceof File) {
@@ -165,7 +157,7 @@ export default function DetailsForm() {
       });
       toast.success("Saved Successfully!", { position: "top-right" });
     } catch (error) {
-      toast.error("Something went wrong!", { position: "top-right" });
+      toast.error(error.response.data.message || "Something went wrong!", { position: "top-right" });
     } finally {
       setPreviewLoading(false);
     }
