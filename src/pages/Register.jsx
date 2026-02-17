@@ -3,8 +3,10 @@ import { GalleryVerticalEnd } from "lucide-react";
 import { SignupForm } from "@/components/signup-form";
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { useTheme } from "@/components/theme-provider";
 
 export default function SignupPage() {
+  const {theme} = useTheme();
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
@@ -12,7 +14,7 @@ export default function SignupPage() {
           <Link to="/" className="flex items-center gap-2 font-medium">
             <div className="text-primary-foreground flex size-10 items-center justify-center rounded-md">
               <img
-                src="/logo.png"
+                src="/logo.jpg"
                 alt="Craftly Logo"
                 className="size-10 rounded-4xl object-contain"
               />
@@ -29,7 +31,7 @@ export default function SignupPage() {
       </div>
       <div className="relative hidden lg:block">
         <img
-          src="/photo.png"
+          src={theme === "dark" ? "/dark_logo.jpg" : "/logo.jpg"}
           alt="Image"
           className="absolute inset-0 h-full w-full object-cover"
         />

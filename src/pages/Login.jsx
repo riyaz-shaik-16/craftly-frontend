@@ -12,7 +12,7 @@ export default function Login() {
           <Link to="/" className="flex items-center gap-2 font-medium">
             <div className="text-primary-foreground flex size-10 items-center justify-center rounded-md">
               <img
-                src="/logo.png"
+                src="/logo.jpg"
                 alt="Craftly Logo"
                 className="size-10 rounded-4xl object-contain"
               />
