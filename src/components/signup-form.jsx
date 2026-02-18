@@ -1,63 +1,63 @@
-import { useState } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
   FieldSeparator,
-} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 
-import api from "@/services/api"
-import useAuthStore from "@/store/auth.store"
+import api from "@/services/api";
+import useAuthStore from "@/store/auth.store";
 
 export function SignupForm({ className, ...props }) {
-  const navigate = useNavigate()
-  const setUser = useAuthStore((s) => s.setUser)
+  const navigate = useNavigate();
+  const setUser = useAuthStore((s) => s.setUser);
 
   // UI-only (for now)
-  const [fullName, setFullName] = useState("")
+  const [fullName, setFullName] = useState("");
 
-  const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError("")
+    e.preventDefault();
+    setError("");
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match")
-      return
+      setError("Passwords do not match");
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
 
     try {
       const res = await api.post("/auth/register", {
         username,
         email,
         password,
-        fullName
-      })
+        fullName,
+      });
 
-      localStorage.setItem("token", res.data.token)
-      setUser(res.data.user)
+      localStorage.setItem("token", res.data.token);
+      setUser(res.data.user);
 
-      navigate("/dashboard", { replace: true })
+      navigate("/dashboard", { replace: true });
     } catch (err) {
-      setError(err)
+      setError(err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <form
@@ -81,6 +81,7 @@ export function SignupForm({ className, ...props }) {
             type="text"
             placeholder="John Doe"
             value={fullName}
+            required
             onChange={(e) => setFullName(e.target.value)}
             className="bg-background"
           />
@@ -88,7 +89,6 @@ export function SignupForm({ className, ...props }) {
             This will be shown on your portfolio.
           </FieldDescription>
         </Field>
-
         <Field>
           <FieldLabel htmlFor="username">Username</FieldLabel>
           <Input
@@ -103,6 +103,12 @@ export function SignupForm({ className, ...props }) {
           <FieldDescription>
             This will be your public portfolio URL.
           </FieldDescription>
+          {username && (
+            <FieldDescription className="text-xs text-muted-foreground">
+              Must be 1–63 characters, lowercase letters, numbers, and hyphens
+              only, and cannot start or end with a hyphen.
+            </FieldDescription>
+          )}
         </Field>
 
         <Field>
@@ -145,11 +151,7 @@ export function SignupForm({ className, ...props }) {
           />
         </Field>
 
-        {error && (
-          <p className="text-sm text-red-500 text-center">
-            {error}
-          </p>
-        )}
+        {error && <p className="text-sm text-red-500 text-center">{error}</p>}
 
         <Field>
           <Button type="submit" disabled={loading}>
@@ -169,5 +171,5 @@ export function SignupForm({ className, ...props }) {
         </Field>
       </FieldGroup>
     </form>
-  )
+  );
 }

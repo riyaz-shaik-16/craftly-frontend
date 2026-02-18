@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Rocket, Palette, LayoutTemplate, Sparkles } from "lucide-react"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export default function LandingPage() {
   const navigate = useNavigate()
@@ -11,9 +12,12 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <div className="flex flex-row justify-end p-5">
+        <ThemeToggle/>
+      </div>
 
       {/* ---------------- HERO ---------------- */}
-      <section className="relative px-6 py-32 text-center">
+      <section className="relative px-6 py-15 text-center">
         <div className="absolute inset-0 bg-linear-to-b from-indigo-600/20 via-transparent to-transparent blur-3xl" />
 
         <div className="relative max-w-4xl mx-auto space-y-8">
